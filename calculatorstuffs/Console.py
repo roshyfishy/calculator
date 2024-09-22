@@ -1,10 +1,14 @@
 from pygame.locals import KEYDOWN
 from calculatorstuffs.buttons import *
+import math as meth
 
 class Console():
     def __init__(self):
         super().__init__()
         self.consoleText = ""
+        self.consoleCharacter = ""
+        self.evalText = ""
+        self.consoleLog = []
         self.text_pos = (59,192)
         self.buttons = {
             0: self.skip,
@@ -59,113 +63,164 @@ class Console():
             49: self.upButton,
             50: self.downButton
         }
+        self.home_screen = pygame.image.load('calculatorstuffs/assets/ti-84boxesempty.png')
+        self.home_screen = pygame.transform.smoothscale(self.home_screen, (320, 720))
+        self.screen = pygame.image.load('calculatorstuffs/assets/ti-84screen.png')
+        self.screen = pygame.transform.smoothscale(self.screen, (220, 390))
     def update(self, value):
         self.button = self.buttons.get(value)
         self.button()
+        self.consoleText += self.consoleCharacter
     def skip(self):
-        pass
+        self.notImplemented()
     def yEquals(self):
-        print("no")
+        self.notImplemented()
     def windowButton(self):
-        print("no")
+        self.notImplemented()
     def zoomButton(self):
-        print("no")
+        self.notImplemented()
     def traceButton(self):
-        print("no")
+        self.notImplemented()
     def graphButton(self):
-        print("no")
+        self.notImplemented()
     def secondButton(self):
-        print("no")
+        self.notImplemented()
     def modeButton(self):
-        print("no")
+        self.notImplemented()
     def delButton(self):
-        print("no")
+        self.notImplemented()
     def alphaButton(self):
-        print("no")
+        self.notImplemented()
     def xButton(self):
-        print("no")
+        self.notImplemented()
     def statButton(self):
-        print("no")
+        self.notImplemented()
     def mathButton(self):
-        print("no")
+        self.notImplemented()
     def appsButton(self):
-        print("no")
+        self.notImplemented()
     def prgmButton(self):
-        print("no")
+        self.notImplemented()
     def varsButton(self):
-        print("no")
+        self.notImplemented()
     def clearButton(self):
-        print("no")
+        self.consoleText = ""
+        self.consoleCharacter = ""
+        self.evalText = ""
     def xToPowerMinusOneButton(self):
-        print("no")
+        self.notImplemented()
     def sinButton(self):
-        print("no")
+        self.notImplemented()
     def cosButton(self):
-        print("no")
+        self.notImplemented()
     def tanButton(self):
-        print("no")
+        self.notImplemented()
     def xToPowerOfButton(self):
-        print("no")
+        self.notImplemented()
     def xToPower2Button(self):
-        print("no")
+        self.notImplemented()
     def commaButton(self):
-        print("no")
+        self.notImplemented()
     def openParenthesisButton(self):
-        print("no")
+        self.notImplemented()
     def closeParenthesisButton(self):
-        print("no")
+        self.notImplemented()
     def divisionButton(self):
-        print("no")
+        self.consoleCharacter = "/"
+        self.evalText += "/"
     def logButton(self):
-        print("no")
+        self.notImplemented()
     def sevenButton(self):
-        self.consoleText += "7"
+        self.consoleCharacter = "7"
+        self.evalText += "7"
     def eightButton(self):
-        self.consoleText += "8"
+        self.consoleCharacter = "8"
+        self.evalText += "8"
     def nineButton(self):
-        self.consoleText += "9"
+        self.consoleCharacter = "9"
+        self.evalText += "9"
     def multiplicationButton(self):
-        print("no")
+        self.consoleCharacter = "*"
+        self.evalText += "*"
     def lnButton(self):
-        print("no")
+        self.notImplemented()
     def fourButton(self):
-        self.consoleText += "4"
+        self.consoleCharacter = "4"
+        self.evalText += "4"
     def fiveButton(self):
-        self.consoleText += "5"
+        self.consoleCharacter = "5"
+        self.evalText += "5"
     def sixButton(self):
-        self.consoleText += "6"
+        self.consoleCharacter = "6"
+        self.evalText += "6"
     def minusButton(self):
-        print("no")
+        self.consoleCharacter = "-"
+        self.evalText += "-"
     def stoButton(self):
-        print("no")
+        self.notImplemented()
     def oneButton(self):
-        self.consoleText += "1"
+        self.consoleCharacter = "1"
+        self.evalText += "1"
     def twoButton(self):
-        self.consoleText += "2"
+        self.consoleCharacter = "2"
+        self.evalText += "2"
     def threeButton(self):
-        self.consoleText += "3"
+        self.consoleCharacter = "3"
+        self.evalText += "3"
     def plusButton(self):
-        print("no")
+        self.consoleCharacter = "+"
+        self.evalText += "+"
     def onButton(self):
-        print("no")
+        self.notImplemented()
     def zeroButton(self):
-        self.consoleText += "0"
+        self.consoleCharacter = "0"
+        self.evalText += "0"
     def dotButton(self):
-        print("no")
+        self.notImplemented()
     def negativeButton(self):
-        print("no")
+        self.notImplemented()
     def enterButton(self):
-        print("no")
+        self.consoleLog.insert(0, self.consoleText)
+        self.consoleLog.insert(0, str(self.runConsoleText()))
+        self.consoleCharacter = ""
+        self.evalText = ""
+        print(self.consoleLog)
     def leftButton(self):
-        print("no")
+        self.notImplemented()
     def rightButton(self):
-        print("no")
+        self.notImplemented()
     def upButton(self):
-        print("no")
+        self.notImplemented()
     def downButton(self):
+        self.notImplemented()
+    def notImplemented(self):
         print("no")
-    def draw(self):
+        self.consoleCharacter = ""
+    def runConsoleText(self):
+        if self.evalText != "":
+            try:
+                print(eval(self.consoleText))
+                return eval(self.consoleText)
+            except Exception as e:
+                print(e)
+
+    def draw(self, surf):
+        surf.blit(self.screen, (52, 52))
         text(self.text_pos, self.consoleText)
+        self.x, self.y = self.text_pos
+        self.mod2 = 1
+        for i in self.consoleLog:
+            self.y -= 15
+            if self.mod2 == 1:
+                self.xOffset = 200
+                text((self.x + self.xOffset, self.y), i, True)
+            else:
+                self.xOffset = 0
+                text((self.x, self.y), i)
+            self.mod2 *= -1
+            # text((self.x + self.xOffset, self.y), i)
+
+        surf.blit(self.home_screen, (0, 0))
 
 # points1 = [
 #     (59, 189, 80, 211)

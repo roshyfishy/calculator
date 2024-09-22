@@ -1,13 +1,28 @@
-import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
-import pygame
-import sys
-import traceback
-from time import time
-# from calculatorstuffs.Game import Game
-from pygame.locals import KEYDOWN
-from calculatorstuffs.buttons import *
-from calculatorstuffs.Console import Console
+try: 
+    import os
+    os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+    import subprocess
+    import pygame
+    import sys
+    import traceback
+    from time import time
+    from pygame.locals import KEYDOWN
+    from calculatorstuffs.buttons import *
+    from calculatorstuffs.Console import Console
+    import math as meth
+except:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "-r", "calculatorstuffs\\requirements.txt"])
+    import os
+    os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+    import subprocess
+    import pygame
+    import sys
+    import traceback
+    from time import time
+    from pygame.locals import KEYDOWN
+    from calculatorstuffs.buttons import *
+    from calculatorstuffs.Console import Console
+    import math as meth
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -49,8 +64,8 @@ class Game():
             self.console_instance.update(self.buttonPressed)
             self.mouse_pos = (-1, -1)
     def draw(self, surf=screen):
-        surf.blit(home_screen, (0, 0))
-        self.console_instance.draw()
+
+        self.console_instance.draw(surf)
         if self.showHitboxes == True:
             displayHitboxes(surf)
 

@@ -73,10 +73,12 @@ def displayHitboxes(surf):
     for rect, value in rectangles:
         pygame.draw.rect(surf, (255, 0, 0), rect)
 font1 = pygame.font.SysFont("fonts\\PixelOperator-Bold.ttf", 25)
-def text(coords, text, display = screen, font = font1, text_alpha = 255, text_color = (0, 0, 0)):
+def text(coords, text, Offset = False, display = screen, font = font1, text_alpha = 255, text_color = (0, 0, 0)):
     texty = font.render(text, True, text_color)
     texty.set_alpha(text_alpha)
     x, y = coords
+    if Offset:
+        x -= texty.get_width()
     display.blit(texty, (x, y))
 
 # buttons = {
