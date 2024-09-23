@@ -61,7 +61,22 @@ class Console():
             47: self.leftButton,
             48: self.rightButton,
             49: self.upButton,
-            50: self.downButton
+            50: self.downButton,
+            (0, 0, 0, 48): self.zeroButton,
+            (0, 0, 0, 49): self.oneButton,
+            (0, 0, 0, 50): self.twoButton,
+            (0, 0, 0, 51): self.threeButton,
+            (0, 0, 0, 52): self.fourButton,
+            (0, 0, 0, 53): self.fiveButton,
+            (0, 0, 0, 54): self.sixButton,
+            (0, 0, 0, 55): self.sevenButton,
+            (0, 0, 0, 56): self.eightButton,
+            (0, 0, 0, 57): self.nineButton,
+            (1, 0, 0, 61): self.plusButton,
+            (0, 0, 0, 45): self.minusButton,
+            (1, 0, 0, 56): self.multiplicationButton,
+            (0, 0, 0, 47): self.divisionButton,
+
         }
         self.home_screen = pygame.image.load('calculatorstuffs/assets/ti-84boxesempty.png')
         self.home_screen = pygame.transform.smoothscale(self.home_screen, (320, 720))
@@ -69,10 +84,11 @@ class Console():
         self.screen = pygame.transform.smoothscale(self.screen, (220, 390))
     def update(self, value):
         self.button = self.buttons.get(value)
-        self.button()
-        self.consoleText += self.consoleCharacter
+        if self.button != None:
+            self.button()
+            self.consoleText += self.consoleCharacter
     def skip(self):
-        self.notImplemented()
+        pass
     def yEquals(self):
         self.notImplemented()
     def windowButton(self):
@@ -122,9 +138,11 @@ class Console():
     def commaButton(self):
         self.notImplemented()
     def openParenthesisButton(self):
-        self.notImplemented()
+        self.consoleCharacter = "("
+        self.evalText += "("
     def closeParenthesisButton(self):
-        self.notImplemented()
+        self.consoleCharacter = ")"
+        self.evalText += ")"
     def divisionButton(self):
         self.consoleCharacter = "/"
         self.evalText += "/"
@@ -180,9 +198,17 @@ class Console():
     def negativeButton(self):
         self.notImplemented()
     def enterButton(self):
+        if self.consoleText == "":
+            self.consoleLog.insert(0, self.consoleLog[1])
+            self.consoleLog.insert(0, self.consoleLog[1])
+            return
         self.consoleLog.insert(0, self.consoleText)
-        self.consoleLog.insert(0, str(self.runConsoleText()))
+        self.evalReply = self.runConsoleText()
+        if self.evalReply != "None":
+            self.ans = self.evalReply
+        self.consoleLog.insert(0, str(self.evalReply))
         self.consoleCharacter = ""
+        self.consoleText = ""
         self.evalText = ""
         print(self.consoleLog)
     def leftButton(self):
@@ -203,7 +229,28 @@ class Console():
                 return eval(self.consoleText)
             except Exception as e:
                 print(e)
+                return "Error"
+    def keyboardPresses(self, event):
+        if event.type == pygame.KEYDOWN:
 
+            mods = pygame.key.get_mods()
+            if mods & pygame.KMOD_SHIFT:
+                self.shiftPressed = 1
+            else:
+                self.shiftPressed = 0
+            if mods & pygame.KMOD_CTRL:
+                self.cntrlPressed = 1
+            else:
+                self.cntrlPressed = 0
+            if mods & pygame.KMOD_ALT:
+                self.altPressed = 1
+            else:
+                self.altPressed = 0
+            self.keyPressed = event.key
+            self.keyFull = (self.shiftPressed, self.cntrlPressed, self.altPressed, self.keyPressed)
+            print(self.keyFull)
+            self.update(self.keyFull)
+            self.keyFull = (0, 0, 0, 0)
     def draw(self, surf):
         surf.blit(self.screen, (52, 52))
         text(self.text_pos, self.consoleText)
@@ -218,11 +265,5 @@ class Console():
                 self.xOffset = 0
                 text((self.x, self.y), i)
             self.mod2 *= -1
-            # text((self.x + self.xOffset, self.y), i)
 
         surf.blit(self.home_screen, (0, 0))
-
-# points1 = [
-#     (59, 189, 80, 211)
-#     (249, 159, 262, 181)
-# ]

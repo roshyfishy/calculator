@@ -58,13 +58,13 @@ class Game():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.mouse_pos = pygame.mouse.get_pos()
+        self.console_instance.keyboardPresses(event)
     def update(self, surf=screen):
         if self.mouse_pos != (-1, -1):
             self.buttonPressed = checkcollisions(self.mouse_pos)
             self.console_instance.update(self.buttonPressed)
             self.mouse_pos = (-1, -1)
     def draw(self, surf=screen):
-
         self.console_instance.draw(surf)
         if self.showHitboxes == True:
             displayHitboxes(surf)
@@ -103,7 +103,6 @@ class GameRunner():
     def quit(self):
         pygame.quit()
         sys.exit()
-
 if __name__ == "__main__":
     states = {
         "Menu":     "Menu()",
