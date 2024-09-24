@@ -80,3 +80,166 @@ def text(coords, text, Offset = False, display = screen, font = font1, text_alph
     if Offset:
         x -= texty.get_width()
     display.blit(texty, (x, y))
+    return texty.get_width(), texty.get_height()
+# def startPlotButton(self, keyAttribute):
+#     self.notImplemented()
+# def tableSetupButton(self, keyAttribute):
+#     self.notImplemented()
+# def formatButton(self, keyAttribute):
+#     self.notImplemented()
+# def calcButton(self, keyAttribute):
+#     self.notImplemented()
+# def tableButton(self, keyAttribute):
+#     self.notImplemented()
+# def quitButton(self, keyAttribute):
+#     self.notImplemented()
+# def insertButton(self, keyAttribute):
+#     self.notImplemented()
+# def aLockButton(self, keyAttribute):
+#     self.notImplemented()
+# def linkButton(self, keyAttribute):
+#     self.notImplemented()
+# def listButton(self, keyAttribute):
+#     self.notImplemented()
+# def testButton(self, keyAttribute):
+#     self.notImplemented()
+# def angleButton(self):
+#     self.notImplemented()
+# def drawButton(self):
+#     self.notImplemented()
+# def distrButton(self):
+#     self.notImplemented()
+# def matrixButton(self):
+#     self.notImplemented()
+# def sinMinus1Button(self):
+#     self.notImplemented()
+# def cosMinus1Button(self):
+#     self.notImplemented()
+# def tanMinus1Button(self):
+#     self.notImplemented()
+# def pieButton(self):
+#     self.notImplemented()
+# def sqrtButton(self):
+#     self.notImplemented()
+# def eeButton(self):
+#     self.notImplemented()
+# def openCurlyBracketButton(self):
+#     self.notImplemented()
+# def closeCurlyBracketButton(self):
+#     self.notImplemented()
+# def eButton(self):
+#     self.notImplemented()
+# def tenToXButton(self):
+#     self.notImplemented()
+# def uButton(self):
+#     self.notImplemented()
+# def vButton(self):
+#     self.notImplemented()
+# def wButton(self):
+#     self.notImplemented()
+# def openBracketButton(self):
+#     self.notImplemented()
+# def eToXButton(self):
+#     self.notImplemented()
+# def l4Button(self):
+#     self.notImplemented()
+# def l5Button(self):
+#     self.notImplemented()
+# def l6Button(self):
+#     self.notImplemented()
+# def closeBracketButton(self):
+#     self.notImplemented()
+# def rclButton(self):
+#     self.notImplemented()
+# def l1Button(self):
+#     self.notImplemented()
+# def l2Button(self):
+#     self.notImplemented()
+# def l3Button(self):
+#     self.notImplemented()
+# def memButton(self):
+#     self.notImplemented()
+# def offButton(self):
+#     self.notImplemented()
+# def catalogButton(self):
+#     self.notImplemented()
+# def iButton(self):
+#     self.notImplemented()
+# def ansButton(self):
+#     self.notImplemented()
+# def entryButton(self):
+#     self.notImplemented()
+# def f1Button(self):
+#     self.notImplemented()
+# def f2Button(self):
+#     self.notImplemented()
+# def f3Button(self):
+#     self.notImplemented()
+# def f4Button(self):
+#     self.notImplemented()
+# def f5Button(self):
+#     self.notImplemented()
+# def letterAButton(self):
+#     self.notImplemented()
+# def letterBButton(self):
+#     self.notImplemented()
+# def letterCButton(self):
+#     self.notImplemented()
+# def letterDButton(self):
+#     self.notImplemented()
+# def letterEButton(self):
+#     self.notImplemented()
+# def letterFButton(self):
+#     self.notImplemented()
+# def letterGButton(self):
+#     self.notImplemented()
+# def letterHButton(self):
+#     self.notImplemented()
+# def letterIButton(self):
+#     self.notImplemented()
+# def letterJButton(self):
+#     self.notImplemented()
+# def letterKButton(self):
+#     self.notImplemented()
+# def letterLButton(self):
+#     self.notImplemented()
+# def letterMButton(self):
+#     self.notImplemented()
+# def letterNButton(self):
+#     self.notImplemented()
+# def letterOButton(self):
+#     self.notImplemented()
+# def letterPButton(self):
+#     self.notImplemented()
+# def letterQButton(self):
+#     self.notImplemented()
+# def letterRButton(self):
+#     self.notImplemented()
+# def letterSButton(self):
+#     self.notImplemented()
+# def letterTButton(self):
+#     self.notImplemented()
+# def letterUButton(self):
+#     self.notImplemented()
+# def letterVButton(self):
+#     self.notImplemented()
+# def letterWButton(self):
+#     self.notImplemented()
+# def letterXButton(self):
+#     self.notImplemented()
+# def letterYButton(self):
+#     self.notImplemented()
+# def letterZButton(self):
+#     self.notImplemented()
+# def emptySetButton(self):
+#     self.notImplemented()
+# def quotationMarksButton(self):
+#     self.notImplemented()
+# def spaceButton(self):
+#     self.notImplemented()
+# def colonButton(self):
+#     self.notImplemented()
+# def questionMarkButton(self):
+#     self.notImplemented()
+# def solveButton(self):
+#     self.notImplemented()    

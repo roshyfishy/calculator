@@ -1,6 +1,7 @@
 from pygame.locals import KEYDOWN
 from calculatorstuffs.buttons import *
 import math as meth
+import time
 
 class Console():
     def __init__(self):
@@ -8,11 +9,19 @@ class Console():
         self.consoleText = ""
         self.consoleCharacter = ""
         self.evalText = ""
+        self.evalCharacter = ""
         self.consoleLog = []
         self.text_pos = (59,192)
+        self.highlight_pos = [60, 192]
+        self.highlightDimensions = ()
+        self.time = 0
+        self.timeBlinked = 0
+        self.blink = True
+        self.acceptingInput = True
+        self.keyAttribute = 0
         self.buttons = {
             0: self.skip,
-            1: self.yEquals,
+            1: self.yEqualsButton,
             2: self.windowButton,
             3: self.zoomButton,
             4: self.traceButton,
@@ -76,7 +85,9 @@ class Console():
             (0, 0, 0, 45): self.minusButton,
             (1, 0, 0, 56): self.multiplicationButton,
             (0, 0, 0, 47): self.divisionButton,
-
+            (0, 0, 0, 13): self.enterButton,
+            (1, 0, 0, 57): self.openParenthesisButton,
+            (1, 0, 0, 48): self.closeParenthesisButton,
         }
         self.home_screen = pygame.image.load('calculatorstuffs/assets/ti-84boxesempty.png')
         self.home_screen = pygame.transform.smoothscale(self.home_screen, (320, 720))
@@ -85,143 +96,375 @@ class Console():
     def update(self, value):
         self.button = self.buttons.get(value)
         if self.button != None:
-            self.button()
+            self.button(self.keyAttribute)
             self.consoleText += self.consoleCharacter
-    def skip(self):
+            self.evalText += self.evalCharacter
+    def skip(self, keyAttribute):
         pass
-    def yEquals(self):
+    def yEqualsButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def windowButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def zoomButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def traceButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def graphButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def secondButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.keyAttribute = 1
+        if keyAttribute == 1:
+            self.keyAttribute = 0
+        if keyAttribute == 2:
+            self.keyAttribute = 1
+    def modeButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def delButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def alphaButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.keyAttribute = 2
+        if keyAttribute == 1:
+            self.keyAttribute = 2
+        if keyAttribute == 2:
+            self.keyAttribute = 0
+    def xButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def statButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def mathButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def appsButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def prgmButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def varsButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def clearButton(self, keyAttribute):
+        if keyAttribute == 0:
+            if self.acceptingInput:
+                self.consoleText = ""
+                self.consoleCharacter = ""
+                self.evalText = ""
+                self.highlight_pos = [60, 192]
+    def xToPowerMinusOneButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def sinButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def cosButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def tanButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def xToPowerOfButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def xToPower2Button(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def commaButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def openParenthesisButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "("
+            self.evalCharacter = "("
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def closeParenthesisButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = ")"
+            self.evalCharacter = ")"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def divisionButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "/"
+            self.evalCharacter = "/"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def logButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def sevenButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "7"
+            self.evalCharacter = "7"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def eightButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "8"
+            self.evalCharacter = "8"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def nineButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "9"
+            self.evalCharacter = "9"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def multiplicationButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "*"
+            self.evalCharacter = "*"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def lnButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def fourButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "4"
+            self.evalCharacter = "4"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def fiveButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "5"
+            self.evalCharacter = "5"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def sixButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "6"
+            self.evalCharacter = "6"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def minusButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "-"
+            self.evalCharacter = "-"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def stoButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def oneButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "1"
+            self.evalCharacter = "1"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def twoButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "2"
+            self.evalCharacter = "2"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def threeButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "3"
+            self.evalCharacter = "3"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def plusButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "+"
+            self.evalCharacter = "+"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def onButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def zeroButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.consoleCharacter = "0"
+            self.evalCharacter = "0"
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def dotButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def negativeButton(self, keyAttribute):
+        if keyAttribute == 0:
+            self.notImplemented()
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def enterButton(self, keyAttribute):
+        if keyAttribute == 0:
+            if self.consoleText == "":
+                self.consoleLog.insert(0, self.consoleLog[1])
+                self.consoleLog.insert(0, self.consoleLog[1])
+                return
+            self.consoleLog.insert(0, self.consoleText)
+            self.evalReply = self.runConsoleText()
+            if self.evalReply != "None":
+                self.ans = self.evalReply
+            self.consoleLog.insert(0, str(self.evalReply))
+            self.consoleCharacter = ""
+            self.consoleText = ""
+            self.evalCharacter = ""
+            self.evalText = ""
+            self.highlight_pos = [60, 192]
+            print(self.consoleLog)
+        if keyAttribute == 1:
+            self.notImplemented()
+        if keyAttribute == 2:
+            self.notImplemented()
+    def leftButton(self, keyAttribute):
         self.notImplemented()
-    def windowButton(self):
+    def rightButton(self, keyAttribute):
         self.notImplemented()
-    def zoomButton(self):
+    def upButton(self, keyAttribute):
         self.notImplemented()
-    def traceButton(self):
-        self.notImplemented()
-    def graphButton(self):
-        self.notImplemented()
-    def secondButton(self):
-        self.notImplemented()
-    def modeButton(self):
-        self.notImplemented()
-    def delButton(self):
-        self.notImplemented()
-    def alphaButton(self):
-        self.notImplemented()
-    def xButton(self):
-        self.notImplemented()
-    def statButton(self):
-        self.notImplemented()
-    def mathButton(self):
-        self.notImplemented()
-    def appsButton(self):
-        self.notImplemented()
-    def prgmButton(self):
-        self.notImplemented()
-    def varsButton(self):
-        self.notImplemented()
-    def clearButton(self):
-        self.consoleText = ""
-        self.consoleCharacter = ""
-        self.evalText = ""
-    def xToPowerMinusOneButton(self):
-        self.notImplemented()
-    def sinButton(self):
-        self.notImplemented()
-    def cosButton(self):
-        self.notImplemented()
-    def tanButton(self):
-        self.notImplemented()
-    def xToPowerOfButton(self):
-        self.notImplemented()
-    def xToPower2Button(self):
-        self.notImplemented()
-    def commaButton(self):
-        self.notImplemented()
-    def openParenthesisButton(self):
-        self.consoleCharacter = "("
-        self.evalText += "("
-    def closeParenthesisButton(self):
-        self.consoleCharacter = ")"
-        self.evalText += ")"
-    def divisionButton(self):
-        self.consoleCharacter = "/"
-        self.evalText += "/"
-    def logButton(self):
-        self.notImplemented()
-    def sevenButton(self):
-        self.consoleCharacter = "7"
-        self.evalText += "7"
-    def eightButton(self):
-        self.consoleCharacter = "8"
-        self.evalText += "8"
-    def nineButton(self):
-        self.consoleCharacter = "9"
-        self.evalText += "9"
-    def multiplicationButton(self):
-        self.consoleCharacter = "*"
-        self.evalText += "*"
-    def lnButton(self):
-        self.notImplemented()
-    def fourButton(self):
-        self.consoleCharacter = "4"
-        self.evalText += "4"
-    def fiveButton(self):
-        self.consoleCharacter = "5"
-        self.evalText += "5"
-    def sixButton(self):
-        self.consoleCharacter = "6"
-        self.evalText += "6"
-    def minusButton(self):
-        self.consoleCharacter = "-"
-        self.evalText += "-"
-    def stoButton(self):
-        self.notImplemented()
-    def oneButton(self):
-        self.consoleCharacter = "1"
-        self.evalText += "1"
-    def twoButton(self):
-        self.consoleCharacter = "2"
-        self.evalText += "2"
-    def threeButton(self):
-        self.consoleCharacter = "3"
-        self.evalText += "3"
-    def plusButton(self):
-        self.consoleCharacter = "+"
-        self.evalText += "+"
-    def onButton(self):
-        self.notImplemented()
-    def zeroButton(self):
-        self.consoleCharacter = "0"
-        self.evalText += "0"
-    def dotButton(self):
-        self.notImplemented()
-    def negativeButton(self):
-        self.notImplemented()
-    def enterButton(self):
-        if self.consoleText == "":
-            self.consoleLog.insert(0, self.consoleLog[1])
-            self.consoleLog.insert(0, self.consoleLog[1])
-            return
-        self.consoleLog.insert(0, self.consoleText)
-        self.evalReply = self.runConsoleText()
-        if self.evalReply != "None":
-            self.ans = self.evalReply
-        self.consoleLog.insert(0, str(self.evalReply))
-        self.consoleCharacter = ""
-        self.consoleText = ""
-        self.evalText = ""
-        print(self.consoleLog)
-    def leftButton(self):
-        self.notImplemented()
-    def rightButton(self):
-        self.notImplemented()
-    def upButton(self):
-        self.notImplemented()
-    def downButton(self):
+    def downButton(self, keyAttribute):
         self.notImplemented()
     def notImplemented(self):
         print("no")
         self.consoleCharacter = ""
+        self.evalCharacter = ""
     def runConsoleText(self):
         if self.evalText != "":
             try:
@@ -232,7 +475,6 @@ class Console():
                 return "Error"
     def keyboardPresses(self, event):
         if event.type == pygame.KEYDOWN:
-
             mods = pygame.key.get_mods()
             if mods & pygame.KMOD_SHIFT:
                 self.shiftPressed = 1
@@ -251,9 +493,11 @@ class Console():
             print(self.keyFull)
             self.update(self.keyFull)
             self.keyFull = (0, 0, 0, 0)
-    def draw(self, surf):
+    def draw(self, surf, timey):
+        self.time = timey
         surf.blit(self.screen, (52, 52))
-        text(self.text_pos, self.consoleText)
+        texty = text(self.text_pos, self.consoleText)
+        self.highlight_pos[0] = 60 + texty[0]
         self.x, self.y = self.text_pos
         self.mod2 = 1
         for i in self.consoleLog:
@@ -265,5 +509,18 @@ class Console():
                 self.xOffset = 0
                 text((self.x, self.y), i)
             self.mod2 *= -1
-
         surf.blit(self.home_screen, (0, 0))
+        if self.blink:
+            if self.keyAttribute == 0:
+                pygame.draw.rect(surf, (0, 0, 0), (self.highlight_pos[0], self.highlight_pos[1], 10, 15), 2)
+            elif self.keyAttribute == 1:
+                pygame.draw.polygon(surf, (0, 0, 0), [(self.highlight_pos[0], self.highlight_pos[1] + 5), (self.highlight_pos[0] + 5, self.highlight_pos[1]), (self.highlight_pos[0] + 10, self.highlight_pos[1] + 5), (self.highlight_pos[0] + 7, self.highlight_pos[1] + 4), (self.highlight_pos[0] + 7, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 3, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 3, self.highlight_pos[1] + 4)], 2)
+            elif self.keyAttribute == 2:
+                pass
+            if self.time > self.timeBlinked + .5:
+                self.blink = not self.blink
+                self.timeBlinked = time.time()
+        else:
+            if self.time > self.timeBlinked + .5:
+                self.blink = not self.blink
+                self.timeBlinked = time.time()

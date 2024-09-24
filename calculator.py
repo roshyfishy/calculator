@@ -5,7 +5,7 @@ try:
     import pygame
     import sys
     import traceback
-    from time import time
+    import time
     from pygame.locals import KEYDOWN
     from calculatorstuffs.buttons import *
     from calculatorstuffs.Console import Console
@@ -18,7 +18,7 @@ except:
     import pygame
     import sys
     import traceback
-    from time import time
+    import time
     from pygame.locals import KEYDOWN
     from calculatorstuffs.buttons import *
     from calculatorstuffs.Console import Console
@@ -33,9 +33,7 @@ screen1.set_alpha(0)
 pygame.display.set_caption('calculator')
 # icon = pygame.image.load("assets/pizza.png")
 # pygame.display.set_icon(icon)
-last_time = time()
-home_screen = pygame.image.load('calculatorstuffs/assets/ti-84boxes.png')
-home_screen = pygame.transform.smoothscale(home_screen, (320, 720))
+last_time = time.time()
 
 
 
@@ -64,19 +62,17 @@ class Game():
             self.buttonPressed = checkcollisions(self.mouse_pos)
             self.console_instance.update(self.buttonPressed)
             self.mouse_pos = (-1, -1)
-    def draw(self, surf=screen):
-        self.console_instance.draw(surf)
+    def draw(self, surf, time):
+        self.time = time
+        self.console_instance.draw(surf, self.time)
         if self.showHitboxes == True:
             displayHitboxes(surf)
-
-
 class GameRunner():
     def __init__(self, screen, states, start_state) -> None:
         self.screen = screen
         self.states = states
         self.start_state = start_state
         self.state = self.states[self.start_state]
-
         self.state.start()
         self.run()
     def run(self):
@@ -93,13 +89,15 @@ class GameRunner():
                 self.quit()
             self.state.get_event(event)
     def update(self):
+
         self.state.update()
     def draw(self):
         # pygame.display.set_icon(pygame.image.load('assets/player_idle1.png'))
         pygame.display.set_caption(f'calculator - Pygame. FPS: {int(clock.get_fps())}')
         clock.tick(60)
         pygame.display.update()
-        self.state.draw(self.screen)
+        self.time = time.time()
+        self.state.draw(self.screen, self.time)
     def quit(self):
         pygame.quit()
         sys.exit()
