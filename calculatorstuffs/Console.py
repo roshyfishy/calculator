@@ -19,6 +19,8 @@ class Console():
         self.blink = True
         self.acceptingInput = True
         self.keyAttribute = 0
+        self.ans = None
+        self.alphaLock = False
         self.buttons = {
             0: self.skip,
             1: self.yEqualsButton,
@@ -99,6 +101,15 @@ class Console():
             self.button(self.keyAttribute)
             self.consoleText += self.consoleCharacter
             self.evalText += self.evalCharacter
+            self.consoleCharacter = ""
+            self.evalCharacter = ""
+            if self.keyAttribute != 0:
+                if self.keyAttribute == 1:
+                    if value != 6:
+                        self.keyAttribute = 0
+                elif self.keyAttribute == 2:
+                    if value != 9 and not self.alphaLock:
+                        self.keyAttribute = 0           
     def skip(self, keyAttribute):
         pass
     def yEqualsButton(self, keyAttribute):
@@ -162,8 +173,10 @@ class Console():
             self.keyAttribute = 2
         if keyAttribute == 1:
             self.keyAttribute = 2
+            self.alphaLock = True
         if keyAttribute == 2:
             self.keyAttribute = 0
+            self.alphaLock = False
     def xButton(self, keyAttribute):
         if keyAttribute == 0:
             self.notImplemented()
@@ -280,6 +293,10 @@ class Console():
             self.notImplemented()
     def divisionButton(self, keyAttribute):
         if keyAttribute == 0:
+            if self.consoleText == "":
+                self.consoleCharacter = "Ans/"
+                self.evalCharacter = f"{self.ans}/"
+                return
             self.consoleCharacter = "/"
             self.evalCharacter = "/"
         if keyAttribute == 1:
@@ -319,6 +336,10 @@ class Console():
             self.notImplemented()
     def multiplicationButton(self, keyAttribute):
         if keyAttribute == 0:
+            if self.consoleText == "":
+                self.consoleCharacter = "Ans*"
+                self.evalCharacter = f"{self.ans}*"
+                return
             self.consoleCharacter = "*"
             self.evalCharacter = "*"
         if keyAttribute == 1:
@@ -358,6 +379,10 @@ class Console():
             self.notImplemented()
     def minusButton(self, keyAttribute):
         if keyAttribute == 0:
+            if self.consoleText == "":
+                self.consoleCharacter = "Ans-"
+                self.evalCharacter = f"{self.ans}-"
+                return
             self.consoleCharacter = "-"
             self.evalCharacter = "-"
         if keyAttribute == 1:
@@ -397,6 +422,10 @@ class Console():
             self.notImplemented()
     def plusButton(self, keyAttribute):
         if keyAttribute == 0:
+            if self.consoleText == "":
+                self.consoleCharacter = "Ans+"
+                self.evalCharacter = f"{self.ans}+"
+                return
             self.consoleCharacter = "+"
             self.evalCharacter = "+"
         if keyAttribute == 1:
@@ -429,15 +458,19 @@ class Console():
         if keyAttribute == 0:
             self.notImplemented()
         if keyAttribute == 1:
-            self.notImplemented()
+            self.consoleCharacter = "Ans"
+            self.evalCharacter = self.consoleLog[0]
+            
         if keyAttribute == 2:
             self.notImplemented()
     def enterButton(self, keyAttribute):
         if keyAttribute == 0:
             if self.consoleText == "":
-                self.consoleLog.insert(0, self.consoleLog[1])
-                self.consoleLog.insert(0, self.consoleLog[1])
-                return
+                # self.consoleLog.insert(0, self.consoleLog[1])
+                # self.consoleLog.insert(0, self.consoleLog[1])
+                # return
+                self.consoleText = self.consoleLog[1]
+                self.evalText = self.consoleLog[1]
             self.consoleLog.insert(0, self.consoleText)
             self.evalReply = self.runConsoleText()
             if self.evalReply != "None":
@@ -468,8 +501,8 @@ class Console():
     def runConsoleText(self):
         if self.evalText != "":
             try:
-                print(eval(self.consoleText))
-                return eval(self.consoleText)
+                print(eval(self.evalText))
+                return eval(self.evalText)
             except Exception as e:
                 print(e)
                 return "Error"
@@ -516,7 +549,8 @@ class Console():
             elif self.keyAttribute == 1:
                 pygame.draw.polygon(surf, (0, 0, 0), [(self.highlight_pos[0], self.highlight_pos[1] + 5), (self.highlight_pos[0] + 5, self.highlight_pos[1]), (self.highlight_pos[0] + 10, self.highlight_pos[1] + 5), (self.highlight_pos[0] + 7, self.highlight_pos[1] + 4), (self.highlight_pos[0] + 7, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 3, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 3, self.highlight_pos[1] + 4)], 2)
             elif self.keyAttribute == 2:
-                pass
+                pygame.draw.polygon(surf, (0, 0, 0), [(self.highlight_pos[0], self.highlight_pos[1] + 15), (self.highlight_pos[0] + 3, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 5, self.highlight_pos[1] + 10), (self.highlight_pos[0] + 7, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 10, self.highlight_pos[1] + 15), (self.highlight_pos[0] + 5, self.highlight_pos[1])], 2)
+                pygame.draw.polygon(surf, (0, 0, 0), [(self.highlight_pos[0] + 4, self.highlight_pos[1] + 10), (self.highlight_pos[0] + 6, self.highlight_pos[1] + 10), (self.highlight_pos[0] + 5, self.highlight_pos[1] + 8)], 2)
             if self.time > self.timeBlinked + .5:
                 self.blink = not self.blink
                 self.timeBlinked = time.time()
